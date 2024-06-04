@@ -54,7 +54,7 @@ async def buy_prod(order:Order):
     producer=AIOKafkaProducer(BOOTSTRAP_SERVER)
     try:
         # produce message
-        await producer.send_and_wait(KAFKA_ORDER_TOPIC)
+        await producer.send_and_wait(KAFKA_ORDER_TOPIC, orderJSON)
     finally:
         producer.stop()
     return orderJSON

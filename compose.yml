@@ -32,8 +32,8 @@ services:
     ports:
       - '9092:9092'
     volumes:
-      - ./createtopic:/usr/local/bin/
-    entrypoint: ["sh", "-c", "/usr/local/bin/createtopic.sh"]
+      - ./createtopic.sh:/usr/local/bin/createtopic.sh
+    # entrypoint: ["sh", "-c", "/usr/local/bin/createtopic.sh"]
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
