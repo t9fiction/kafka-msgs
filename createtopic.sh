@@ -1,0 +1,1 @@
+/opt/kafka/bin/kafka-topics.sh --create --topic qstart-events --bootstrap-server broker:9092
