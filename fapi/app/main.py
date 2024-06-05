@@ -53,10 +53,14 @@ async def buy_prod(order:Order):
     order_dict = order.dict()
 
     orderJSON=json.dumps(order_dict).encode("utf-8")
-    producer=AIOKafkaProducer(bootstrap_servers=BOOTSTRAP_SERVER)
+    # producer=AIOKafkaProducer(bootstrap_servers=BOOTSTRAP_SERVER)
+    producer=AIOKafkaProducer(bootstrap_servers='broker:19092')
+    await producer.start()  # Ensure the producer is started
     try:
         # produce message
-        await producer.send_and_wait(KAFKA_ORDER_TOPIC, orderJSON)
+        await producer.send_and_wait('order', orderJSON)
     finally:
         producer.stop()
-    return orderJSON
+    return {
+        "msg":"Hello"
+    }
