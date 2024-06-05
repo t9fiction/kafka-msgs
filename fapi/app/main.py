@@ -50,8 +50,10 @@ def read_root():
 
 @app.post("/create_order")
 async def buy_prod(order:Order):
-    orderJSON=json.dumps(order).encode("utf-8")
-    producer=AIOKafkaProducer(BOOTSTRAP_SERVER)
+    order_dict = order.dict()
+
+    orderJSON=json.dumps(order_dict).encode("utf-8")
+    producer=AIOKafkaProducer(bootstrap_servers=BOOTSTRAP_SERVER)
     try:
         # produce message
         await producer.send_and_wait(KAFKA_ORDER_TOPIC, orderJSON)
